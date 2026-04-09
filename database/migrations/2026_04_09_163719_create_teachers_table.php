@@ -11,22 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aprendices', function (Blueprint $table) {
+        Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->string('email');
-            $table->string('cell number');
             //Atributos foraneos
-            $table->unsignedBigInteger('course_id')->nullable();
-            $table->unsignedBigInteger('computer_id')->nullable();
+            $table->unsignedBigInteger('area_id')->nullable();
+            $table->unsignedBigInteger('training_center_id')->nullable();
            //referenciando la tabla courses
-            $table->foreign('course_id')
+            $table->foreign('area_id')
                 ->references('id')
-                ->on('courses')->onDelete('set null');
+                ->on('areas')->onDelete('set null');
             //referenciando la tabla computers
-            $table->foreign('computer_id')
+            $table->foreign('training_center_id')
             ->references('id')
-            ->on('computers')->onDelete('set null');
+            ->on('training_centers')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -36,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aprendices');
+        Schema::dropIfExists('teachers');
     }
 };
